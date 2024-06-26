@@ -13,7 +13,7 @@ function M.notify(body, level, title, extraOpts)
 
 	local baseOpts = { title = notifyTitle }
 	local opts = vim.tbl_extend("force", baseOpts, extraOpts or {})
-	return vim.notify(vim.trim(body), notifyLevel, opts)
+	return vim.notify(body, notifyLevel, opts)
 end
 
 ---checks if last command was successful, if not, notify
@@ -44,8 +44,7 @@ end
 ---@param cmd string[]
 ---@return string stdout
 function M.syncShellCmd(cmd)
-	local stdout = vim.system(cmd):wait().stdout or ""
-	return vim.trim(stdout)
+	return vim.system(cmd):wait().stdout or ""
 end
 
 --------------------------------------------------------------------------------
