@@ -12,7 +12,7 @@ function M.notify(body, level, title, extraOpts)
 
 	local baseOpts = { title = notifyTitle }
 	local opts = vim.tbl_extend("force", baseOpts, extraOpts or {})
-	return vim.notify(vim.trim(body), notifyLevel, opts)
+	return vim.notify(body, notifyLevel, opts)
 end
 
 ---checks if command was successful, if not, notifies
