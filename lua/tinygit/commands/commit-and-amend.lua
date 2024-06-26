@@ -281,6 +281,7 @@ local function showCommitPreview()
 	local function cleanupStatsOutput(gitStatsArgs)
 		return u
 			.syncShellCmd(gitStatsArgs)
+			:gsub( "%s+$", "")
 			:gsub("\n[^\n]*$", "") -- remove summary line (footer)
 			:gsub(" | ", " │ ") -- pipes to full vertical bars
 			:gsub(" Bin ", "    ") -- binary icon
@@ -323,7 +324,7 @@ local function showCommitPreview()
 		table.insert(gitStatsCmd, "--staged")
 		local staged = cleanupStatsOutput(gitStatsCmd)
 		changes = notStaged == "" and staged
-			or table.concat({ staged, specialWhitespace, "not staged:", notStaged }, "\n")
+			or table.concat({ staged, specialWhitespace, notStaged }, "\n")
 	end
 
 	setupNotificationHighlights(function()

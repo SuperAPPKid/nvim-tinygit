@@ -3,27 +3,9 @@ local M = {}
 
 ---@alias Tinygit.notifyLevel "info"|"trace"|"debug"|"warn"|"error"
 
----@class Tinygit.notifyOpts
----@field title? string
----@field icon? string
----@field timeout? number|boolean
----@field ft? string snacks.nvim
----@field id? string snacks.nvim
----@field animate? boolean nvim-notify
----@field on_open? function nvim-notify
----@field replace? number nvim-notify
-
----@param body string
----@param level? Tinygit.notifyLevel
----@param opts? Tinygit.notifyOpts
-function M.notify(body, level, opts)
-	if not level then level = "info" end
-	if not opts then opts = {} end
-
-	opts.title = opts.title and "tinygit: " .. opts.title or "tinygit"
-	if not opts.icon then opts.icon = require("tinygit.config").config.appearance.mainIcon end
-
-	return vim.notify(vim.trim(body), vim.log.levels[level:upper()], opts)
+	local baseOpts = { title = notifyTitle }
+	local opts = vim.tbl_extend("force", baseOpts, extraOpts or {})
+	return vim.notify(body, notifyLevel, opts)
 end
 
 ---checks if command was successful, if not, notifies
